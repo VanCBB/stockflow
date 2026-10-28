@@ -1,16 +1,16 @@
 package main
 
 import (
-    "context"
-    "log"
-    "net/http"
-    "os"
-    "time"
+	"context"
+	"log"
+	"net/http"
+	"os"
+	"time"
 
-    "github.com/jackc/pgx/v5/pgxpool"
+	"github.com/jackc/pgx/v5/pgxpool"
 
-    "stockflow/internal/handlers"
-    "stockflow/internal/store"
+	"stockflow/internal/handlers"
+	"stockflow/internal/store"
 )
 
 func main() {
@@ -40,6 +40,9 @@ func main() {
         w.Write([]byte(`{"status":"ok"}`))
     })
     mux.HandleFunc("GET /api/products", h.ListProducts)
+    mux.HandleFunc("POST /api/products", h.CreateProduct)
+    mux.HandleFunc("PUT /api/products/{id}", h.UpdateProduct)
+    mux.HandleFunc("DELETE /api/products/{id}", h.DeleteProduct)
 
     addr := ":8080"
     log.Printf("listening on %s", addr)
