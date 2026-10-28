@@ -1,16 +1,16 @@
 package main
 
 import (
-	"context"
-	"log"
-	"net/http"
-	"os"
-	"time"
+    "context"
+    "log"
+    "net/http"
+    "os"
+    "time"
 
-	"github.com/jackc/pgx/v5/pgxpool"
+    "github.com/jackc/pgx/v5/pgxpool"
 
-	"stockflow/internal/handlers"
-	"stockflow/internal/store"
+    "stockflow/internal/handlers"
+    "stockflow/internal/store"
 )
 
 func main() {
@@ -43,6 +43,8 @@ func main() {
     mux.HandleFunc("POST /api/products", h.CreateProduct)
     mux.HandleFunc("PUT /api/products/{id}", h.UpdateProduct)
     mux.HandleFunc("DELETE /api/products/{id}", h.DeleteProduct)
+    mux.HandleFunc("POST /api/products/{id}/stock", h.AdjustStock)
+    mux.HandleFunc("GET /api/products/{id}/movements", h.ListMovements)
 
     addr := ":8080"
     log.Printf("listening on %s", addr)
