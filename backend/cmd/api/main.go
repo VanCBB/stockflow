@@ -8,6 +8,9 @@ import (
     "time"
 
     "github.com/jackc/pgx/v5/pgxpool"
+
+    "stockflow/internal/handlers"
+    "stockflow/internal/store"
 )
 
 func main() {
@@ -29,11 +32,14 @@ func main() {
         log.Fatalf("ping db: %v", err)
     }
 
+    h := &handlers.Handler{Store: store.New(pool)}
+
     mux := http.NewServeMux()
     mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, r *http.Request) {
         w.Header().Set("Content-Type", "application/json")
         w.Write([]byte(`{"status":"ok"}`))
     })
+    mux.HandleFunc("GET /api/products", h.ListProducts)
 
     addr := ":8080"
     log.Printf("listening on %s", addr)
