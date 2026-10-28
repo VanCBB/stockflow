@@ -45,6 +45,9 @@ func main() {
     mux.HandleFunc("DELETE /api/products/{id}", h.DeleteProduct)
     mux.HandleFunc("POST /api/products/{id}/stock", h.AdjustStock)
     mux.HandleFunc("GET /api/products/{id}/movements", h.ListMovements)
+    mux.HandleFunc("POST /api/orders", h.CreateOrder)
+    mux.HandleFunc("GET /api/orders/{id}", h.GetOrder)
+    mux.HandleFunc("POST /api/orders/{id}/cancel", h.CancelOrder)
 
     addr := ":8080"
     log.Printf("listening on %s", addr)
