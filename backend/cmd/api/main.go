@@ -39,6 +39,7 @@ func main() {
         w.Header().Set("Content-Type", "application/json")
         w.Write([]byte(`{"status":"ok"}`))
     })
+    mux.HandleFunc("GET /api/summary", h.GetSummary)
     mux.HandleFunc("GET /api/products", h.ListProducts)
     mux.HandleFunc("POST /api/products", h.CreateProduct)
     mux.HandleFunc("PUT /api/products/{id}", h.UpdateProduct)
