@@ -1,0 +1,7 @@
+services:
+  database:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: stockflow
+      POSTGRES_PASSWORD: stockflow_dev
+      POSTGRES_DB: stockflow
